@@ -18,7 +18,7 @@ class Bert(nn.Module):
         self.dropout = nn.Dropout(config.hidden_dropout_prob)
         self.multi_drop = config.multi_drop
         self.hidden_size = config.hidden_size
-        self.classifier=nn.Sequential(nn.Linear(self.hidden_size,  config.num_labels),)
+        self.classifier=nn.Sequential(nn.Linear(self.hidden_size,  config.num_labels),) # 按序列顺序组织层
 
 
 
