@@ -60,6 +60,7 @@ def model_train(config, model, train_iter, dev_iter=None):
     no_decay = ["bias", "LayerNorm.weight"]
     diff_part = ["bert.embeddings", "bert.encoder"]
     if config.diff_learning_rate is False:
+        # 如果不使用差异学习率，不同参数设置不同的正则化强度。
         optimizer_grouped_parameters = [
             {
                 "params": [p for n, p in model.named_parameters() if not any(nd in n for nd in no_decay)],
@@ -72,6 +73,7 @@ def model_train(config, model, train_iter, dev_iter=None):
         ]
         optimizer = AdamW(optimizer_grouped_parameters, lr=config.learning_rate)
     else:
+        # 如果使用差异学习率，不同参数使用不同正则化参数
         logger.info("use the diff learning rate")
         # the formal is basic_bert part, not include the pooler
         optimizer_grouped_parameters = [
