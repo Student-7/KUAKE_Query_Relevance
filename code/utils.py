@@ -44,7 +44,7 @@ class InputFeatures(object):
 
     def __init__(self, input_ids, attention_mask=None, token_type_ids=None, label=None):
         self.input_ids = input_ids
-        self.attention_mask = attention_mask
+        self.attention_mask = attention_mask  #哪些是实际值，哪些是填充
         self.token_type_ids = token_type_ids
         self.label = label
 
@@ -119,7 +119,7 @@ class BuildDataSet(Data.Dataset):
 def config_to_dict(config):
 
     output = copy.deepcopy(config.__dict__)
-    if hasattr(config.__class__, "model_type"):
+    if hasattr(config.__class__, "model_type"):  #has attr
         output["model_type"] = config.__class__.model_type
     output['device'] = config.device.type
     return output
